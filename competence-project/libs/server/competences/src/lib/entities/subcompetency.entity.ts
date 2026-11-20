@@ -1,9 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, Check, ManyToOne, ManyToMany, JoinColumn, Unique, JoinTable, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Check, ManyToOne, ManyToMany, JoinColumn, Unique, JoinTable, OneToOne, OneToMany } from 'typeorm';
 import { Competency } from './competency.entity';
 import { Tool } from './tool.entity';
 import { Method } from './method.entity';
 import { Skill } from './skill.entity';
 import { ObservationObject } from './observation-object.entity';
+import { Test } from './test.entity';
+import { BestSubcompetencyScore } from './best-subcompetency-score.entity';
 
 @Entity('subcompetency')
 @Check(`"weight" >= 1 AND "weight" <= 5`)
@@ -61,4 +63,10 @@ export class Subcompetency {
 
     @OneToOne(() => ObservationObject, (observation_object) => observation_object.subcompetency)
     observation_object: ObservationObject;
+
+    @ManyToMany(() => Test, (test) => test.subcompetencies)
+    tests: Test[];
+
+    @OneToMany(() => BestSubcompetencyScore, (best_subcompetency_score) => best_subcompetency_score.subcompetency)
+    best_subcompetency_scores: BestSubcompetencyScore[];
 }
