@@ -12,11 +12,11 @@ export class TestExecution {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'numeric', nullable: false, transformer: numericTransformer })
-    test_score: number;
+    @Column({ type: 'numeric', nullable: true, transformer: numericTransformer })
+    test_score: number | null;
 
-    @Column({ type: 'numeric', nullable: false, transformer: numericTransformer })
-    max_score: number;
+    @Column({ type: 'numeric', nullable: true, transformer: numericTransformer })
+    max_score: number | null;
 
     @ManyToOne(() => Test, (test) => test.test_executions, {
         nullable: false,
